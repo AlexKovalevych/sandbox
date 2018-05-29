@@ -21,10 +21,14 @@ otp_release:
 env:
   global:
     - MIX_ENV=test
+    - POSTGRES_VERSION=9.6
+    - DOCKER_HUB_LOGIN=devildriver
+    - secure: "jlaab91y6jQnZ/yYstmymid5aL7MuconNCBw1698iLDLqYK1kjX8Pvwd1PTDs+S31IyhxG9m+lI7LdrPLf6mwU+dYLgAxAx13eFJQJZUwgWT5XRIt4fGTZriFdRUhhSdnVB42Ttw4bbjWWT6mynFYz81MQG225ju8L8qiiXktuYJaf6dy30aJpPIbiQhDzGv3o5GLNnvnMCLn4vmsC5fypCPQPGtunMblFQW0N0IpKXUvanfNYlFZ7MDO3P8JpgWw8w07TGDR+jHFMO55FtR3blOvddOaZWVHAGqdplaqCR3GHAas9SN0XUHoQmaTXkaTgErnhfzbUi7w8NbWHZLtnlD7aSzErk03uA8naWJ4pBOxBQdmzisYe0tb8mfxlWQsVVkPFbov18KJULoP70XpP7YPZo5p20+9plW0Als+3yBzn7t5EGzBHB1tzi8Xc1sUxAA155v+vrSDWA1Yv4DBia7yf+PBbFTtbVQt9fPU3r5N3JqODzs3vWpYfrpeEcMh3YfiFIvD0UEF7wC3O5TNfSXilMwQ9HL5sdZY/U8w2UdqokMj8rXQTfpBBQiky4Cxj+eD3BiyTB6qUMK0Mi5SoxGeUkvdS6PXMSWYeEuFOSkRVS7zXtHXhTpSBapjGZDt4uTkwZlP0EzreAu92Z1j/11jUNFZumc/ZxRhB/s9UM="
 branches:
   except:
     - /[0-9]*\.[0-9]*\.[0-9]*/
 before_install:
+  - sudo apt-get install jq
   # Expose DB to Docker container
   - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh | sudo sh
 # before_script:
