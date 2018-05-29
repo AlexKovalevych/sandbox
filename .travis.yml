@@ -31,9 +31,9 @@ before_install:
   - sudo apt-get install jq
   # Expose DB to Docker container
   - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh | sudo sh
-# before_script:
-#   # Extract project name and version from mix.exs
-#   - source ./bin/ci/rel/fetch-project-environment.sh
+before_script:
+  # Extract project name and version from mix.exs
+  - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh | sh
 #   # Load information about new version
 #   - source ./bin/ci/release/fetch-source-version.sh
 #   # Load information about changelog
