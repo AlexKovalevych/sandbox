@@ -3,57 +3,35 @@ git:
   depth: 1000
 cache:
   directories:
-    - _build
-    - deps
+  - _build
+  - deps
 services:
-  - docker
-  - postgresql
+- docker
+- postgresql
 addons:
-  postgresql: "9.6"
+  postgresql: '9.6'
   apt:
     packages:
-      - postgresql-9.6-postgis-2.3
-      - docker-ce
+    - postgresql-9.6-postgis-2.3
+    - docker-ce
 elixir:
-  - 1.6.3
+- 1.6.3
 otp_release:
-  - 20.2.2
+- 20.2.2
 env:
   global:
-    - MIX_ENV=test
-    - POSTGRES_VERSION=9.6
-    - DOCKER_HUB_LOGIN=devildriver
-    - secure: "jlaab91y6jQnZ/yYstmymid5aL7MuconNCBw1698iLDLqYK1kjX8Pvwd1PTDs+S31IyhxG9m+lI7LdrPLf6mwU+dYLgAxAx13eFJQJZUwgWT5XRIt4fGTZriFdRUhhSdnVB42Ttw4bbjWWT6mynFYz81MQG225ju8L8qiiXktuYJaf6dy30aJpPIbiQhDzGv3o5GLNnvnMCLn4vmsC5fypCPQPGtunMblFQW0N0IpKXUvanfNYlFZ7MDO3P8JpgWw8w07TGDR+jHFMO55FtR3blOvddOaZWVHAGqdplaqCR3GHAas9SN0XUHoQmaTXkaTgErnhfzbUi7w8NbWHZLtnlD7aSzErk03uA8naWJ4pBOxBQdmzisYe0tb8mfxlWQsVVkPFbov18KJULoP70XpP7YPZo5p20+9plW0Als+3yBzn7t5EGzBHB1tzi8Xc1sUxAA155v+vrSDWA1Yv4DBia7yf+PBbFTtbVQt9fPU3r5N3JqODzs3vWpYfrpeEcMh3YfiFIvD0UEF7wC3O5TNfSXilMwQ9HL5sdZY/U8w2UdqokMj8rXQTfpBBQiky4Cxj+eD3BiyTB6qUMK0Mi5SoxGeUkvdS6PXMSWYeEuFOSkRVS7zXtHXhTpSBapjGZDt4uTkwZlP0EzreAu92Z1j/11jUNFZumc/ZxRhB/s9UM="
+  - MIX_ENV=test
+  - APPS='["sandbox_api"]'
+  - POSTGRES_VERSION=9.6
+  - DOCKER_HUB_LOGIN=devildriver
+  - secure: S/P0vPp6C/8GsRqM8QvMnmKGnhuScKIkz0ZYVN9k8tg4ks/FxWkc8rr0mBMYPwTaRdeKExMyM4yLJzhclLDqU+6SYYJxb86G8yhxPM0powF4xoXr9FY8EQREbr/fgg16YsNvq5HBeUyCm5zCLGl4s0sFaWGz1D+unxSbiMaRqZgJqpMU8ocsmtODDTxqlAyjDb5NDUhfzWIzWSBctJMoomCiV0tsJAJsGF86qNhHbERBNSYV+2mZgU5VWEXHpDPowgLM096uv71hGFF+nUwwYn4uquVPegPncsXx+1cjLgTzoUi7m0nzAKCOwsxCl/O6Ilu8yNIgMuNsLGBjRGMbCYkKHuD5Wf2YoEgx6z/7SHraIW0SFtDqQ2DufnEr3IVv2ObgAMLgYMxRoJ8d48jlbRe5W8yMHooKUyZ5fLEKii4GrrAFzzNhq+UBwC5sNDpXyOMGuej0g+x996OI1YzmacxgGKtPNfDSmWHKz5AZ+yPv/0f/RUBHJpSYYrfh1W3gprE4qDJs0y87i3ubz9YJwXO5ZWNO0IOsRd9ub4BFfMFbzvsSSgN3brIvMEkkXUl7YCz/7XSuJM/WXInchLanlTUXp8+oDzOODkAalsBTBwaTn1jNv+ACdnZQF5AJY51/2sKcRmL2Jcm3Jic9ieBCvj6Fl3CF1V/j6UcBwoONXos=
 branches:
   except:
-    - /[0-9]*\.[0-9]*\.[0-9]*/
+  - "/[0-9]*\\.[0-9]*\\.[0-9]*/"
 before_install:
-  - sudo apt-get install jq
-  # Expose DB to Docker container
-  - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh | sudo sh
+- sudo apt-get install jq
+- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh
+  | sudo sh
 before_script:
-  # Extract project name and version from mix.exs
-  - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh | sh
-#   # Load information about new version
-#   - source ./bin/ci/release/fetch-source-version.sh
-#   # Load information about changelog
-#   - source ./bin/ci/release/fetch-changelog.sh
-# script:
-#   # Check for versioning error
-#   - ./bin/ci/release/check-version-error.sh || travis_terminate 1
-#   # Increment version in mix.exs
-#   - ./bin/ci/release/put-source-version.sh || travis_terminate 1
-#   # Create release notes log for minor version
-#   - ./bin/ci/release/put-release-notes.sh
-#   # Run all tests except pending ones
-#   - ./bin/mix_tests.sh || travis_terminate 1
-#   # Build Docker container
-#   - ./bin/ci/rel/build-container.sh || travis_terminate 1
-#   # Initialize DB for Docker container
-#   - (cd apps/ehealth && MIX_ENV=dev mix ecto.setup)
-#   # Run Docker container
-#   - sudo ./bin/ci/release/start-container.sh
-#   - sudo ./bin/ci/release/check-container.sh || travis_terminate 1
-#   # Submit Docker container to Docker Hub and create GitHub Release by pushing tag with changelog
-#   - ./bin/ci/rel/push-changes.sh || travis_terminate 1
-#   - echo "Decrypting deploy key..."
+- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh
+  | sh
