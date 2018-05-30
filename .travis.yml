@@ -34,9 +34,9 @@ before_install:
   | sudo sh
 before_script:
 - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh
-  | sh
+  | bash
 script:
   # Run all tests except pending ones
-  - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/tests.sh | sh || travis_terminate 1
+  - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/tests.sh | bash || travis_terminate 1
   # Build Docker container
-  - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/build-container.sh | sh || travis_terminate 1
+  - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/build-container.sh | bash || travis_terminate 1
