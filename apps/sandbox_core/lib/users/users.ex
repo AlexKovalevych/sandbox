@@ -1,4 +1,6 @@
 defmodule SandboxCore.Users do
+  @moduledoc false
+
   alias SandboxCore.Repo
   alias SandboxCore.Users.User
 
