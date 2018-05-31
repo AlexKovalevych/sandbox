@@ -30,13 +30,11 @@ branches:
   - "/[0-9]*\\.[0-9]*\\.[0-9]*/"
 before_install:
 - sudo apt-get install jq
-- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh
-  | sudo sh
+- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh -o init-db.sh; sudo sh ./init-db.sh
 before_script:
-- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh
-  | bash
+- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh -o init-version.sh; sh ./init-version.sh
 script:
   # Run all tests except pending ones
-  - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/tests.sh | bash || travis_terminate 1
+  - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/tests.sh -o tests.sh; sh ./tests.sh) || travis_terminate 1
   # Build Docker container
-  - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/build-container.sh | bash || travis_terminate 1
+  - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/build-container.sh -o build-container.sh; sh ./build-container.sh) || travis_terminate 1
