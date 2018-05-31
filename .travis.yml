@@ -32,7 +32,7 @@ before_install:
 - sudo apt-get install jq
 - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh -o init-db.sh; sudo sh ./init-db.sh
 before_script:
-- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh -o init-version.sh; sh ./init-version.sh
+- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh -o init-version.sh; source ./init-version.sh
 script:
   # Run all tests except pending ones
   - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/tests.sh -o tests.sh; bash ./tests.sh) || travis_terminate 1
