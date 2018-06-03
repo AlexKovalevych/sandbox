@@ -38,3 +38,5 @@ script:
   - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/tests.sh -o tests.sh; bash ./tests.sh) || travis_terminate 1
   # Build Docker container
   - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/build-container.sh -o build-container.sh; bash ./build-container.sh) || travis_terminate 1
+  # Start Docker container
+  - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/start-container.sh -o start-container.sh; bash ./start-container.sh) || travis_terminate 1
