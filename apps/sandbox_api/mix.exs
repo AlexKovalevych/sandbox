@@ -13,7 +13,8 @@ defmodule SandboxApi.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
@@ -43,5 +44,15 @@ defmodule SandboxApi.MixProject do
       {:plug_logger_json, "~> 0.5"},
       {:sandbox_core, in_umbrella: true}
     ]
+  end
+
+  defp aliases do
+    [
+      "ecto.setup": &ecto_setup/1
+    ]
+  end
+
+  defp ecto_setup(_) do
+    Mix.shell().cmd("cd ../sandbox_core && mix ecto.setup")
   end
 end
