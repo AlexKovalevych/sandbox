@@ -23,8 +23,8 @@ env:
   - MIX_ENV=test
   - APPS='["sandbox_api"]'
   - POSTGRES_VERSION=9.6
-  - DOCKER_HUB_LOGIN=devildriver
-  - secure: S/P0vPp6C/8GsRqM8QvMnmKGnhuScKIkz0ZYVN9k8tg4ks/FxWkc8rr0mBMYPwTaRdeKExMyM4yLJzhclLDqU+6SYYJxb86G8yhxPM0powF4xoXr9FY8EQREbr/fgg16YsNvq5HBeUyCm5zCLGl4s0sFaWGz1D+unxSbiMaRqZgJqpMU8ocsmtODDTxqlAyjDb5NDUhfzWIzWSBctJMoomCiV0tsJAJsGF86qNhHbERBNSYV+2mZgU5VWEXHpDPowgLM096uv71hGFF+nUwwYn4uquVPegPncsXx+1cjLgTzoUi7m0nzAKCOwsxCl/O6Ilu8yNIgMuNsLGBjRGMbCYkKHuD5Wf2YoEgx6z/7SHraIW0SFtDqQ2DufnEr3IVv2ObgAMLgYMxRoJ8d48jlbRe5W8yMHooKUyZ5fLEKii4GrrAFzzNhq+UBwC5sNDpXyOMGuej0g+x996OI1YzmacxgGKtPNfDSmWHKz5AZ+yPv/0f/RUBHJpSYYrfh1W3gprE4qDJs0y87i3ubz9YJwXO5ZWNO0IOsRd9ub4BFfMFbzvsSSgN3brIvMEkkXUl7YCz/7XSuJM/WXInchLanlTUXp8+oDzOODkAalsBTBwaTn1jNv+ACdnZQF5AJY51/2sKcRmL2Jcm3Jic9ieBCvj6Fl3CF1V/j6UcBwoONXos=
+  - DOCKER_USERNAME=devildriver
+  - secure: "W/Bznmp+aIB9bGsI0JhDHlHER6fCbCwjVzNXbltT5na/eqneZMtMOcKPUBr3cqw3Nf9VVMxxosWkHAftFARuCZzelqLsSokiGi+7oIlsKFUM7+bour76lSPeas2XavDKBuP+TkztnpYxyEMDqRubPAPUM3SOs+3zZfR2RTeBa+GzWaf2bOvlQ2osQGY+RAGm71h1XXBnzHiCv/003EzZkNplNGkTzL013dv2UH6hZsyfPlRxKhNDOFblzIPPOjGBebkQ99O6Cc0FyUOos/UktHdMlkcOqXCG8MrDGZXNTrpGDzp7+GHjFwRfSI0R7tuzHBO7T9yigAZxplK4L73XgJiJFsZN5RokCDDXNAf4lYuUXVlUx8ryqTtspCOP3yYS85efOxfz6JruHYSoPAERtpvzShYAwlXklEBqUwUO0/o352p0U0okdY+qZJZC1HZ9s2gWj5k1b1Vk46A63GcFSGp+6ct5nbD/1qGeR1vmB+lYgcYhlyyomsgpwOhGLbSv0ttIdVQJ5JMfbOL9uQb/qxnvcPAaIrFda81vPEbhvyKXYO3ycXUsQY8ZWjpMybFsnbCWxP6v25qGG62PVBA4uDOobRPHC+EXbkto3wUO7i1aZU8E7lKG76WPUsnSiLz1zatTRbZrFzGVvmyxF768YhvC02hNMmEb2Rx2o0M6yGA="
 branches:
   except:
   - "/[0-9]*\\.[0-9]*\\.[0-9]*/"
@@ -40,3 +40,5 @@ script:
   - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/build-container.sh -o build-container.sh; bash ./build-container.sh) || travis_terminate 1
   # Start Docker container
   - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/start-container.sh -o start-container.sh; bash ./start-container.sh) || travis_terminate 1
+  # Push container
+  - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/push-changes.sh -o push-changes.sh; bash ./push-changes.sh) || travis_terminate 1
