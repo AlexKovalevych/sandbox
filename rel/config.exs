@@ -18,6 +18,11 @@ release :sandbox_api do
   set(applications: [:sandbox_api, :runtime_tools])
 end
 
+release :sandbox_rest do
+  set(version: "0.1.0")
+  set(applications: [:sandbox_rest, :runtime_tools])
+end
+
 # release :web do
 #   set(version: "0.1.0")
 #   set(applications: [:sandbox_web, :runtime_tools])

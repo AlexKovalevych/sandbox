@@ -3,57 +3,43 @@ git:
   depth: 1000
 cache:
   directories:
-    - _build
-    - deps
+  - _build
+  - deps
 services:
-  - docker
-  - postgresql
+- docker
+- postgresql
 addons:
-  postgresql: "9.6"
+  postgresql: '9.6'
   apt:
     packages:
-      - postgresql-9.6-postgis-2.3
-      - docker-ce
+    - postgresql-9.6-postgis-2.3
+    - docker-ce
 elixir:
-  - 1.6.3
+- 1.6.3
 otp_release:
-  - 20.2.2
+- 20.2.2
 env:
   global:
-    - MIX_ENV=test
-    - POSTGRES_VERSION=9.6
-    - DOCKER_HUB_LOGIN=devildriver
-    - secure: "jlaab91y6jQnZ/yYstmymid5aL7MuconNCBw1698iLDLqYK1kjX8Pvwd1PTDs+S31IyhxG9m+lI7LdrPLf6mwU+dYLgAxAx13eFJQJZUwgWT5XRIt4fGTZriFdRUhhSdnVB42Ttw4bbjWWT6mynFYz81MQG225ju8L8qiiXktuYJaf6dy30aJpPIbiQhDzGv3o5GLNnvnMCLn4vmsC5fypCPQPGtunMblFQW0N0IpKXUvanfNYlFZ7MDO3P8JpgWw8w07TGDR+jHFMO55FtR3blOvddOaZWVHAGqdplaqCR3GHAas9SN0XUHoQmaTXkaTgErnhfzbUi7w8NbWHZLtnlD7aSzErk03uA8naWJ4pBOxBQdmzisYe0tb8mfxlWQsVVkPFbov18KJULoP70XpP7YPZo5p20+9plW0Als+3yBzn7t5EGzBHB1tzi8Xc1sUxAA155v+vrSDWA1Yv4DBia7yf+PBbFTtbVQt9fPU3r5N3JqODzs3vWpYfrpeEcMh3YfiFIvD0UEF7wC3O5TNfSXilMwQ9HL5sdZY/U8w2UdqokMj8rXQTfpBBQiky4Cxj+eD3BiyTB6qUMK0Mi5SoxGeUkvdS6PXMSWYeEuFOSkRVS7zXtHXhTpSBapjGZDt4uTkwZlP0EzreAu92Z1j/11jUNFZumc/ZxRhB/s9UM="
+  - MIX_ENV=test
+  - APPS='{"sandbox_api":"sandbox","sandbox_rest":"sandbox_rest"}'
+  - POSTGRES_VERSION=9.6
+  - DOCKER_USERNAME=devildriver
+  - secure: "W/Bznmp+aIB9bGsI0JhDHlHER6fCbCwjVzNXbltT5na/eqneZMtMOcKPUBr3cqw3Nf9VVMxxosWkHAftFARuCZzelqLsSokiGi+7oIlsKFUM7+bour76lSPeas2XavDKBuP+TkztnpYxyEMDqRubPAPUM3SOs+3zZfR2RTeBa+GzWaf2bOvlQ2osQGY+RAGm71h1XXBnzHiCv/003EzZkNplNGkTzL013dv2UH6hZsyfPlRxKhNDOFblzIPPOjGBebkQ99O6Cc0FyUOos/UktHdMlkcOqXCG8MrDGZXNTrpGDzp7+GHjFwRfSI0R7tuzHBO7T9yigAZxplK4L73XgJiJFsZN5RokCDDXNAf4lYuUXVlUx8ryqTtspCOP3yYS85efOxfz6JruHYSoPAERtpvzShYAwlXklEBqUwUO0/o352p0U0okdY+qZJZC1HZ9s2gWj5k1b1Vk46A63GcFSGp+6ct5nbD/1qGeR1vmB+lYgcYhlyyomsgpwOhGLbSv0ttIdVQJ5JMfbOL9uQb/qxnvcPAaIrFda81vPEbhvyKXYO3ycXUsQY8ZWjpMybFsnbCWxP6v25qGG62PVBA4uDOobRPHC+EXbkto3wUO7i1aZU8E7lKG76WPUsnSiLz1zatTRbZrFzGVvmyxF768YhvC02hNMmEb2Rx2o0M6yGA="
 branches:
   except:
-    - /[0-9]*\.[0-9]*\.[0-9]*/
+  - "/[0-9]*\\.[0-9]*\\.[0-9]*/"
 before_install:
-  - sudo apt-get install jq
-  # Expose DB to Docker container
-  - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh | sudo sh
-# before_script:
-#   # Extract project name and version from mix.exs
-#   - source ./bin/ci/rel/fetch-project-environment.sh
-#   # Load information about new version
-#   - source ./bin/ci/release/fetch-source-version.sh
-#   # Load information about changelog
-#   - source ./bin/ci/release/fetch-changelog.sh
-# script:
-#   # Check for versioning error
-#   - ./bin/ci/release/check-version-error.sh || travis_terminate 1
-#   # Increment version in mix.exs
-#   - ./bin/ci/release/put-source-version.sh || travis_terminate 1
-#   # Create release notes log for minor version
-#   - ./bin/ci/release/put-release-notes.sh
-#   # Run all tests except pending ones
-#   - ./bin/mix_tests.sh || travis_terminate 1
-#   # Build Docker container
-#   - ./bin/ci/rel/build-container.sh || travis_terminate 1
-#   # Initialize DB for Docker container
-#   - (cd apps/ehealth && MIX_ENV=dev mix ecto.setup)
-#   # Run Docker container
-#   - sudo ./bin/ci/release/start-container.sh
-#   - sudo ./bin/ci/release/check-container.sh || travis_terminate 1
-#   # Submit Docker container to Docker Hub and create GitHub Release by pushing tag with changelog
-#   - ./bin/ci/rel/push-changes.sh || travis_terminate 1
-#   - echo "Decrypting deploy key..."
+- sudo apt-get install jq
+- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh -o init-db.sh; sudo sh ./init-db.sh
+before_script:
+- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh -o init-version.sh; source ./init-version.sh
+jobs:
+  include:
+    - stage: "test and build"
+      # run tests
+      script: (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/tests.sh -o tests.sh; bash ./tests.sh) || travis_terminate 1
+      # Build Docker container
+    - stage: "test and build"
+      # "Decrypting deploy key..."
+      # - script:  openssl aes-256-cbc -K $encrypted_c996ec964e08_key -iv $encrypted_c996ec964e08_iv -in eHealth-8110bd102a69.json.enc -out eHealth-8110bd102a69.json -d
+      script: (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/docker.sh -o docker.sh; bash ./docker.sh) || travis_terminate 1
