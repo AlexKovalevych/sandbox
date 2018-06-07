@@ -33,15 +33,21 @@ before_install:
 - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh -o init-db.sh; sudo sh ./init-db.sh
 before_script:
 - curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh -o init-version.sh; source ./init-version.sh
-script:
-  # Run all tests except pending ones
-  - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/tests.sh -o tests.sh; bash ./tests.sh) || travis_terminate 1
-  # Build Docker container
-  - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/build-container.sh -o build-container.sh; bash ./build-container.sh) || travis_terminate 1
-  # Start Docker container
-  - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/start-container.sh -o start-container.sh; bash ./start-container.sh) || travis_terminate 1
-  # Push container
-  - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/push-changes.sh -o push-changes.sh; bash ./push-changes.sh) || travis_terminate 1
-  # - echo "Decrypting deploy key..."
-  # - openssl aes-256-cbc -K $encrypted_c996ec964e08_key -iv $encrypted_c996ec964e08_iv -in eHealth-8110bd102a69.json.enc -out eHealth-8110bd102a69.json -d
-  - (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/autodeploy.sh -o autodeploy.sh; bash ./autodeploy.sh) || travis_terminate 1
+jobs:
+  include:
+    - stage: "test and build"
+      # run tests
+      script: (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/tests.sh -o tests.sh; bash ./tests.sh) || travis_terminate 1
+      # Build Docker container
+    - stage: "test and build"
+      script: (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/build-container.sh -o build-container.sh; bash ./build-container.sh) || travis_terminate 1
+    # Start Docker container
+    - stage: docker
+      script: (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/start-container.sh -o start-container.sh; bash ./start-container.sh) || travis_terminate 1
+    # Push container
+    - stage: push
+      script: (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/push-changes.sh -o push-changes.sh; bash ./push-changes.sh) || travis_terminate 1
+      # "Decrypting deploy key..."
+      # - script:  openssl aes-256-cbc -K $encrypted_c996ec964e08_key -iv $encrypted_c996ec964e08_iv -in eHealth-8110bd102a69.json.enc -out eHealth-8110bd102a69.json -d
+    - stage: autodeploy
+      script: (curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/autodeploy.sh -o autodeploy.sh; bash ./autodeploy.sh) || travis_terminate 1
