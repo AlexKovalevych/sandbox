@@ -21,7 +21,7 @@ otp_release:
 env:
   global:
   - MIX_ENV=test
-  - APPS='{"sandbox_api":"sandbox"}'
+  - APPS='{"sandbox_api":"sandbox","sandbox_rest":"sandbox_rest"}'
   - POSTGRES_VERSION=9.6
   - DOCKER_USERNAME=devildriver
   - secure: "W/Bznmp+aIB9bGsI0JhDHlHER6fCbCwjVzNXbltT5na/eqneZMtMOcKPUBr3cqw3Nf9VVMxxosWkHAftFARuCZzelqLsSokiGi+7oIlsKFUM7+bour76lSPeas2XavDKBuP+TkztnpYxyEMDqRubPAPUM3SOs+3zZfR2RTeBa+GzWaf2bOvlQ2osQGY+RAGm71h1XXBnzHiCv/003EzZkNplNGkTzL013dv2UH6hZsyfPlRxKhNDOFblzIPPOjGBebkQ99O6Cc0FyUOos/UktHdMlkcOqXCG8MrDGZXNTrpGDzp7+GHjFwRfSI0R7tuzHBO7T9yigAZxplK4L73XgJiJFsZN5RokCDDXNAf4lYuUXVlUx8ryqTtspCOP3yYS85efOxfz6JruHYSoPAERtpvzShYAwlXklEBqUwUO0/o352p0U0okdY+qZJZC1HZ9s2gWj5k1b1Vk46A63GcFSGp+6ct5nbD/1qGeR1vmB+lYgcYhlyyomsgpwOhGLbSv0ttIdVQJ5JMfbOL9uQb/qxnvcPAaIrFda81vPEbhvyKXYO3ycXUsQY8ZWjpMybFsnbCWxP6v25qGG62PVBA4uDOobRPHC+EXbkto3wUO7i1aZU8E7lKG76WPUsnSiLz1zatTRbZrFzGVvmyxF768YhvC02hNMmEb2Rx2o0M6yGA="
