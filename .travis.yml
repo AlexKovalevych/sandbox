@@ -29,10 +29,7 @@ branches:
   except:
   - "/[0-9]*\\.[0-9]*\\.[0-9]*/"
 before_install:
-- sudo apt-get install jq
-- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-db.sh -o init-db.sh; sudo sh ./init-db.sh
-before_script:
-- curl -s https://raw.githubusercontent.com/edenlabllc/ci-utils/umbrella/init-version.sh -o init-version.sh; source ./init-version.sh
+  - sudo apt-get install jq
 jobs:
   include:
     - stage: "test and build"

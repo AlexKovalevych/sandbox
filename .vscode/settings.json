@@ -1,0 +1,12 @@
+{
+    "database.connections": [
+        {
+            "type": "postgres",
+            "name": "postgres@localhost:5432 (postgres)",
+            "host": "localhost:5432",
+            "user": "postgres",
+            "password": "postgres",
+            "database": "ehealth_test"
+        }
+    ]
+}
